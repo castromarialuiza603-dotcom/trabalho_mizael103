@@ -14,7 +14,7 @@
 | Eduardo Rafael | Eletrônica e sistemas embarcados |
 | Maria Luiza | Modelagem mecânica e CAD |
 | Vitória | Documentação e interface de supervisão |
-| Mizael Souto | Coordenação e integração IA-robótica |
+| Mizael Souto | professor |
 
 ---
 
