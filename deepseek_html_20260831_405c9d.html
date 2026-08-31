@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mecatrônica · Robótica + IA · Quiz</title>
+  <!-- Font & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ----- reset & base ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #050816;
+      color: #F8FAFC;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ----- glass card / neon utility ----- */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 2rem;
+      padding: 2rem 1.8rem;
+      transition: all 0.25s ease;
+      box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.6);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(0, 168, 255, 0.3);
+      box-shadow: 0 12px 48px -8px rgba(0, 168, 255, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .neon-text {
+      background: linear-gradient(135deg, #00A8FF 0%, #00F5D4 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .neon-glow {
+      color: #00A8FF;
+      text-shadow: 0 0 12px rgba(0, 168, 255, 0.3);
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(0, 168, 255, 0.12);
+      border: 1px solid rgba(0, 168, 255, 0.2);
+      border-radius: 40px;
+      padding: 0.3rem 1.2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: #94A3B8;
+      backdrop-filter: blur(4px);
+    }
+
+    /* ----- header / nav ----- */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      background: rgba(5, 8, 22, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #00A8FF, #7C3AED);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #94A3B8;
+    }
+
+    .nav-links a {
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #F8FAFC;
+    }
+
+    .nav-links .highlight {
+      color: #00F5D4;
+    }
+
+    /* ----- hero ----- */
+    .hero {
+      padding: 4rem 0 5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: 3.8rem;
+      font-weight: 700;
+      line-height: 1.1;
+      max-width: 900px;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #00A8FF, #7C3AED, #00F5D4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: #94A3B8;
+      max-width: 640px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero .stat-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(0, 245, 212, 0.05);
+      border: 1px solid rgba(0, 245, 212, 0.15);
+      border-radius: 60px;
+      padding: 0.5rem 1.8rem 0.5rem 1.2rem;
+      font-weight: 500;
+      color: #00F5D4;
+      font-size: 0.9rem;
+      backdrop-filter: blur(4px);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero .stat-badge i {
+      font-size: 1.1rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00A8FF, #7C3AED);
+      border: none;
+      padding: 0.9rem 2.6rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #F8FAFC;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 28px -6px rgba(0, 168, 255, 0.25);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.03);
+      box-shadow: 0 12px 40px -6px rgba(0, 168, 255, 0.4);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.8rem;
+      width: 100%;
+      margin-top: 4rem;
+    }
+
+    .hero-grid .glass-card {
+      text-align: left;
+      padding: 1.8rem 1.5rem;
+    }
+
+    .hero-grid .glass-card i {
+      font-size: 2.2rem;
+      color: #00A8FF;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-grid .glass-card h4 {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-grid .glass-card p {
+      color: #94A3B8;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    /* ----- seções genéricas ----- */
+    section {
+      padding: 4.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-sub {
+      color: #94A3B8;
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    /* ----- cards internos ----- */
+    .icon-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .icon-card i {
+      font-size: 2rem;
+      color: #00F5D4;
+      margin-bottom: 0.2rem;
+    }
+
+    .icon-card h4 {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .icon-card p {
+      color: #94A3B8;
+      font-size: 0.95rem;
+    }
+
+    .list-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.2rem;
+      margin-top: 0.5rem;
+    }
+
+    .list-tech span {
+      background: rgba(255,255,255,0.04);
+      padding: 0.25rem 1rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      border: 1px solid rgba(255,255,255,0.05);
+      color: #CBD5E1;
+    }
+
+    .pipeline {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.6rem 1.2rem;
+      background: rgba(0, 168, 255, 0.04);
+      border-radius: 80px;
+      padding: 0.8rem 1.8rem;
+      border: 1px solid rgba(0, 168, 255, 0.08);
+      margin: 1.2rem 0;
+    }
+
+    .pipeline i {
+      color: #7C3AED;
+      font-size: 1.2rem;
+    }
+
+    .pipeline span {
+      font-weight: 500;
+      color: #F8FAFC;
+    }
+
+    /* ----- tabela tech ----- */
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.2rem 0;
+    }
+
+    .tech-table td {
+      padding: 0.9rem 0.4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: #CBD5E1;
+    }
+
+    .tech-table td:first-child {
+      font-weight: 600;
+      color: #F8FAFC;
+    }
+
+    .tech-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ----- QUIZ ----- */
+    .quiz-container {
+      background: rgba(255,255,255,0.02);
+      border-radius: 2.5rem;
+      padding: 2rem 2rem 2.5rem;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .quiz-question {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .quiz-options label {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(255,255,255,0.02);
+      padding: 0.8rem 1.4rem;
+      border-radius: 60px;
+      border: 1px solid rgba(255,255,255,0.04);
+      cursor: pointer;
+      transition: all 0.15s;
+      font-weight: 500;
+    }
+
+    .quiz-options label:hover {
+      background: rgba(0, 168, 255, 0.06);
+      border-color: rgba(0, 168, 255, 0.2);
+    }
+
+    .quiz-options input[type="radio"] {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #475569;
+      border-radius: 50%;
+      transition: all 0.15s;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .quiz-options input[type="radio"]:checked {
+      border-color: #00A8FF;
+      background: #00A8FF;
+      box-shadow: 0 0 12px rgba(0, 168, 255, 0.3);
+    }
+
+    .quiz-options input[type="radio"]:checked::after {
+      content: "✓";
+      position: absolute;
+      color: #050816;
+      font-weight: 700;
+      font-size: 12px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .quiz-feedback {
+      margin: 1rem 0 1.4rem;
+      padding: 0.8rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 500;
+      display: none;
+    }
+
+    .quiz-feedback.correct {
+      display: block;
+      background: rgba(0, 245, 212, 0.08);
+      border: 1px solid rgba(0, 245, 212, 0.2);
+      color: #00F5D4;
+    }
+
+    .quiz-feedback.wrong {
+      display: block;
+      background: rgba(255, 70, 70, 0.08);
+      border: 1px solid rgba(255, 70, 70, 0.2);
+      color: #FF6B6B;
+    }
+
+    .quiz-progress {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.6rem;
+      color: #94A3B8;
+      font-size: 0.9rem;
+    }
+
+    .quiz-progress .bar {
+      flex: 1;
+      height: 4px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      margin: 0 1.2rem;
+    }
+
+    .quiz-progress .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #00A8FF, #7C3AED);
+      border-radius: 4px;
+      width: 0%;
+      transition: width 0.3s;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.6rem 2rem;
+      border-radius: 40px;
+      color: #F8FAFC;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .btn-secondary:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .quiz-result {
+      text-align: center;
+      padding: 1.2rem 0;
+    }
+
+    .quiz-result h3 {
+      font-size: 2rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .quiz-result .score {
+      font-size: 3.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #00F5D4, #00A8FF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ----- rodapé ----- */
+    .footer {
+      padding: 2.5rem 0;
+      text-align: center;
+      color: #475569;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .footer a {
+      color: #00A8FF;
+    }
+
+    /* responsivo */
+    @media (max-width: 900px) {
+      .grid-2col, .grid-3col {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 {
+        font-size: 2.6rem;
+      }
+      .nav-links {
+        gap: 1.2rem;
+        font-size: 0.85rem;
+      }
+      .container {
+        padding: 0 1.2rem;
+      }
+      .quiz-question {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .navbar {
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        padding: 0.8rem 1rem;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem 1.4rem;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero .stat-badge {
+        font-size: 0.75rem;
+        padding: 0.3rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar">
+    <div class="logo"><i class="fas fa-microchip" style="margin-right: 8px;"></i> Mecatrônica<span style="color:#00F5D4; -webkit-text-fill-color:#00F5D4;">+</span>IA</div>
+    <div class="nav-links">
+      <a href="#intro">Início</a>
+      <a href="#robotica">Robótica</a>
+      <a href="#ia">IA</a>
+      <a href="#futuro">Futuro</a>
+      <a href="#quiz" class="highlight"><i class="fas fa-question-circle"></i> Quiz</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="intro" class="hero container">
+    <div class="stat-badge">
+      <i class="fas fa-robot"></i> 542 mil robôs industriais instalados em 2024
+    </div>
+    <h1>
+      Robótica + <span>Inteligência Artificial</span> <br>na Mecatrônica
+    </h1>
+    <p>
+      Quando máquinas começam a perceber, aprender e agir. Sistemas inteligentes
+      que combinam mecânica, eletrônica, controle e IA.
+    </p>
+    <a href="#quiz" class="btn-primary">
+      <i class="fas fa-brain"></i> Teste seus conhecimentos
+    </a>
+
+    <div class="hero-grid">
+      <div class="glass-card">
+        <i class="fas fa-cogs"></i>
+        <h4>Mecatrônica</h4>
+        <p>Mecânica · Eletrônica · Computação</p>
+      </div>
+      <div class="glass-card">
+        <i class="fas fa-brain"></i>
+        <h4>Inteligência Artificial</h4>
+        <p>Visão · ML · Deep Learning</p>
+      </div>
+      <div class="glass-card">
+        <i class="fas fa-robot"></i>
+        <h4>Robótica</h4>
+        <p>Sensores · Atuadores · Controle</p>
+      </div>
+      <div class="glass-card">
+        <i class="fas fa-satellite-dish"></i>
+        <h4>IoT & Digital Twins</h4>
+        <p>Fábricas conectadas · Gêmeos digitais</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- O QUE É MECATRÔNICA -->
+  <section id="robotica" class="container">
+    <span class="badge"><i class="fas fa-microchip"></i> fundamento</span>
+    <h2 class="section-title">O que é Mecatrônica?</h2>
+    <p class="section-sub">
+      Área multidisciplinar que integra engenharias para criar sistemas inteligentes.
+    </p>
+    <div class="grid-2col">
+      <div class="glass-card">
+        <div style="display: flex; flex-wrap: wrap; gap: 0.8rem 1.8rem;">
+          <span><i class="fas fa-cog" style="color:#00A8FF;"></i> Mecânica</span>
+          <span><i class="fas fa-bolt" style="color:#7C3AED;"></i> Elétrica</span>
+          <span><i class="fas fa-code" style="color:#00F5D4;"></i> Computação</span>
+          <span><i class="fas fa-robot" style="color:#00A8FF;"></i> Robótica</span>
+          <span><i class="fas fa-brain" style="color:#7C3AED;"></i> IA</span>
+          <span><i class="fas fa-wifi" style="color:#00F5D4;"></i> IoT</span>
+        </div>
+        <p style="margin-top: 1.2rem; color: #CBD5E1;">
+          Sistemas que percebem, tomam decisões e executam ações. Exemplo: um robô industrial com visão computacional.
+        </p>
+        <div class="pipeline">
+          <i class="fas fa-arrow-right"></i> <span>Sensores</span> <i class="fas fa-arrow-right"></i>
+          <span>Controlador</span> <i class="fas fa-arrow-right"></i> <span>Algoritmo</span>
+          <i class="fas fa-arrow-right"></i> <span>Atuadores</span> <i class="fas fa-arrow-right"></i> <span>Movimento</span>
+        </div>
+      </div>
+      <div class="glass-card">
+        <h4 style="font-weight:600; margin-bottom:0.6rem;"><i class="fas fa-microchip" style="color:#00F5D4;"></i> Sensores & atuadores</h4>
+        <div style="display:flex; flex-wrap:wrap; gap:0.3rem 1.2rem; margin-bottom:0.8rem;">
+          <span class="badge">Câmeras</span>
+          <span class="badge">LiDAR</span>
+          <span class="badge">Encoders</span>
+          <span class="badge">Força</span>
+          <span class="badge">Temperatura</span>
+        </div>
+        <p style="color:#94A3B8;">Atuadores: motores elétricos, servos, pneumáticos, hidráulicos.</p>
+        <hr style="border-color:rgba(255,255,255,0.05); margin:1rem 0;">
+        <p style="color:#CBD5E1;"><i class="fas fa-arrow-right neon-glow"></i> <strong>Controladores:</strong> microcontroladores, CLPs, GPUs, sistemas embarcados.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- IA + ROBÓTICA -->
+  <section id="ia" class="container">
+    <span class="badge"><i class="fas fa-brain"></i> inteligência</span>
+    <h2 class="section-title">IA aplicada à robótica</h2>
+    <p class="section-sub">
+      Robôs evoluem de sequências pré-programadas para sistemas adaptativos.
+    </p>
+    <div class="grid-3col">
+      <div class="glass-card icon-card">
+        <i class="fas fa-eye"></i>
+        <h4>Visão computacional</h4>
+        <p>Câmera + IA identifica objetos, pessoas, defeitos e posições em tempo real.</p>
+      </div>
+      <div class="glass-card icon-card">
+        <i class="fas fa-chart-line"></i>
+        <h4>Machine Learning</h4>
+        <p>Aprende padrões com dados: inspeção de peças, classificação, predição.</p>
+      </div>
+      <div class="glass-card icon-card">
+        <i class="fas fa-network-wired"></i>
+        <h4>Deep Learning</h4>
+        <p>Redes neurais para reconhecimento de imagens, objetos e tarefas complexas.</p>
+      </div>
+    </div>
+
+    <div class="glass-card" style="margin-top: 1.5rem;">
+      <h4><i class="fas fa-arrows-spin" style="color:#00F5D4;"></i> Fluxo de um robô inteligente</h4>
+      <div style="display:flex; flex-wrap:wrap; gap:0.8rem 1.6rem; padding:0.8rem 0;">
+        <span><i class="fas fa-camera" style="color:#7C3AED;"></i> Câmera</span>
+        <span><i class="fas fa-arrow-right" style="color:#475569;"></i></span>
+        <span><i class="fas fa-brain" style="color:#00A8FF;"></i> IA interpreta</span>
+        <span><i class="fas fa-arrow-right" style="color:#475569;"></i></span>
+        <span><i class="fas fa-microchip" style="color:#00F5D4;"></i> Decisão</span>
+        <span><i class="fas fa-arrow-right" style="color:#475569;"></i></span>
+        <span><i class="fas fa-robot" style="color:#7C3AED;"></i> Robô age</span>
+        <span><i class="fas fa-arrow-right" style="color:#475569;"></i></span>
+        <span><i class="fas fa-chart-simple" style="color:#00A8FF;"></i> Otimização</span>
+      </div>
+      <p style="color:#94A3B8; font-size:0.95rem;">Manufatura inteligente · adaptação · aprendizado contínuo</p>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="container">
+    <span class="badge"><i class="fas fa-question-circle"></i> desafio</span>
+    <h2 class="section-title">Quiz: Robótica & IA na Mecatrônica</h2>
+    <p class="section-sub">Responda as perguntas e veja o quanto você sabe sobre o futuro da automação.</p>
+
+    <div class="quiz-container" id="quizApp">
+      <div class="quiz-progress">
+        <span id="qCounter">1 / 6</span>
+        <div class="bar"><div class="bar-fill" id="progressFill" style="width: 0%;"></div></div>
+        <span id="scoreDisplay">0 acertos</span>
+      </div>
+
+      <div id="questionArea">
+        <div class="quiz-question" id="questionText">Carregando pergunta...</div>
+        <div class="quiz-options" id="optionsContainer"></div>
+        <div class="quiz-feedback" id="feedback"></div>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <button class="btn-primary" id="nextBtn" style="padding: 0.6rem 2rem;">Próxima <i class="fas fa-arrow-right"></i></button>
+          <button class="btn-secondary" id="resetQuizBtn"><i class="fas fa-rotate-right"></i> Reiniciar</button>
+        </div>
+      </div>
+
+      <div id="resultArea" style="display: none;">
+        <div class="quiz-result">
+          <h3>🧠 Resultado</h3>
+          <div class="score" id="finalScore">0%</div>
+          <p id="resultMessage" style="color: #94A3B8; margin: 0.8rem 0 1.2rem;">Continue aprendendo!</p>
+          <button class="btn-primary" id="retryQuizBtn"><i class="fas fa-redo"></i> Refazer quiz</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUTURO + TECNOLOGIAS -->
+  <section id="futuro" class="container">
+    <span class="badge"><i class="fas fa-rocket"></i> tendências</span>
+    <h2 class="section-title">Tecnologias do futuro</h2>
+    <div class="grid-2col">
+      <div class="glass-card">
+        <h4><i class="fas fa-cubes" style="color:#00A8FF;"></i> Gêmeos Digitais</h4>
+        <p>Representação virtual de sistemas físicos para simulação, monitoramento e otimização.</p>
+        <div style="background:rgba(0,168,255,0.04); border-radius:40px; padding:0.6rem 1.2rem; margin-top:0.8rem;">
+          <span style="color:#CBD5E1;">Robô real ↔ modelo virtual ↔ dados</span>
+        </div>
+      </div>
+      <div class="glass-card">
+        <h4><i class="fas fa-handshake" style="color:#7C3AED;"></i> Cobots</h4>
+        <p>Robôs colaborativos que trabalham lado a lado com humanos, assumindo tarefas repetitivas.</p>
+        <p style="color:#94A3B8; font-size:0.9rem;">👨‍🔧 humano + 🤖 robô = eficiência</p>
+      </div>
+    </div>
+    <div style="margin-top: 2rem;">
+      <div class="glass-card">
+        <h4 style="margin-bottom:0.8rem;"><i class="fas fa-table"></i> Tecnologias por trás da Mecatrônica</h4>
+        <table class="tech-table">
+          <tr><td>🤖 Robótica</td><td>Movimento e automação</td></tr>
+          <tr><td>🧠 IA</td><td>Tomada de decisões</td></tr>
+          <tr><td>👁️ Visão computacional</td><td>Percepção do ambiente</td></tr>
+          <tr><td>📡 IoT</td><td>Comunicação entre dispositivos</td></tr>
+          <tr><td>🪞 Digital Twin</td><td>Simulação do sistema físico</td></tr>
+          <tr><td>🦾 Cobots</td><td>Colaboração humano-robô</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer class="footer container">
+    <p>
+      <i class="fas fa-robot" style="color:#00A8FF;"></i> Robótica + IA na Mecatrônica · 
+      Fontes: IFR, NIST · 
+      <a href="#quiz" style="color:#00F5D4;">teste seu conhecimento</a>
+    </p>
+    <p style="margin-top: 0.6rem; color:#334155;">
+      542 mil robôs industriais instalados em 2024 · Manufatura inteligente
+    </p>
+  </footer>
+
+  <!-- QUIZ SCRIPT -->
+  <script>
+    (function() {
+      // ----- dados do quiz -----
+      const questions = [
+        {
+          question: "Qual área NÃO faz parte da Mecatrônica?",
+          options: ["Engenharia Mecânica", "Engenharia Elétrica", "Engenharia Civil", "Computação"],
+          correct: 2
+        },
+        {
+          question: "O que é um sensor em um sistema robótico?",
+          options: ["Dispositivo que gera movimento", "Componente que processa dados", "Elemento que percebe o ambiente", "Atuador pneumático"],
+          correct: 2
+        },
+        {
+          question: "Qual tecnologia permite que robôs identifiquem objetos por meio de imagens?",
+          options: ["Visão computacional", "Machine Learning", "Deep Learning", "Todas as alternativas"],
+          correct: 3
+        },
+        {
+          question: "O que são Cobots?",
+          options: ["Robôs industriais de grande porte", "Robôs colaborativos que trabalham com humanos", "Robôs autônomos sem sensores", "Sistemas de controle antigos"],
+          correct: 1
+        },
+        {
+          question: "Para que serve um Gêmeo Digital (Digital Twin)?",
+          options: ["Apenas para videogames", "Representar virtualmente um sistema físico", "Substituir completamente os robôs", "Medir temperatura"],
+          correct: 1
+        },
+        {
+          question: "Quantos robôs industriais foram instalados em 2024 (aproximadamente)?",
+          options: ["100 mil", "542 mil", "1 milhão", "50 mil"],
+          correct: 1
+        }
+      ];
+
+      // ----- estado -----
+      let currentIndex = 0;
+      let score = 0;
+      let answered = false;
+      let selectedOption = null;
+
+      const questionText = document.getElementById('questionText');
+      const optionsContainer = document.getElementById('optionsContainer');
+      const feedback = document.getElementById('feedback');
+      const nextBtn = document.getElementById('nextBtn');
+      const resetBtn = document.getElementById('resetQuizBtn');
+      const retryBtn = document.getElementById('retryQuizBtn');
+      const questionArea = document.getElementById('questionArea');
+      const resultArea = document.getElementById('resultArea');
+      const qCounter = document.getElementById('qCounter');
+      const progressFill = document.getElementById('progressFill');
+      const scoreDisplay = document.getElementById('scoreDisplay');
+      const finalScore = document.getElementById('finalScore');
+      const resultMessage = document.getElementById('resultMessage');
+
+      // ----- funções -----
+      function renderQuestion(index) {
+        const q = questions[index];
+        questionText.textContent = q.question;
+        optionsContainer.innerHTML = '';
+        q.options.forEach((opt, i) => {
+          const label = document.createElement('label');
+          const radio = document.createElement('input');
+          radio.type = 'radio';
+          radio.name = 'quizOption';
+          radio.value = i;
+          radio.addEventListener('change', () => {
+            if (!answered) {
+              selectedOption = i;
+              // remove selected class from all labels
+              document.querySelectorAll('.quiz-options label').forEach(l => l.style.borderColor = 'rgba(255,255,255,0.04)');
+              label.style.borderColor = '#00A8FF';
+            }
+          });
+          label.appendChild(radio);
+          label.appendChild(document.createTextNode(' ' + opt));
+          optionsContainer.appendChild(label);
+        });
+
+        // reset feedback
+        feedback.className = 'quiz-feedback';
+        feedback.style.display = 'none';
+        answered = false;
+        selectedOption = null;
+        nextBtn.disabled = false;
+        nextBtn.textContent = index === questions.length - 1 ? 'Ver
