@@ -24,7 +24,7 @@
 | Item | Descrição |
 | :--- | :--- |
 | **Curso** | Mecatrônica |
-| **Turma / Sala** | 103 /
+| **Turma / Sala** | 103 
 | **Tema** | Robótica e Inteligência Artificial aplicadas à Mecatrônica |
 | **Data** | 2026 |
 
