@@ -14,8 +14,8 @@
 | Eduardo Rafael | Eletrônica e sistemas embarcados |
 | Maria Luiza | Modelagem mecânica e CAD |
 | Vitória | Documentação e interface de supervisão |
-| Rafael   | pesquisa do conteudo
-| Mizael Souto | professor |
+| Rafael   | Pesquisa do conteudo
+| Mizael Souto | Professor |
 
 ---
 
